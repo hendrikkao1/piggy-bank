@@ -1,0 +1,53 @@
+{
+  "Navigation": {
+    "expenses": "Expenses",
+    "addNewExpense": "Add new expense"
+  },
+  "ExpensesListPage": {
+    "heading": "Expenses",
+    "loadMore": "Load more expenses",
+    "loading": "Loading expenses",
+    "nextPage": "Next page",
+    "prevPage": "Previous page"
+  },
+  "ExpenseDetailsPage": {
+    "heading": "Expense details",
+    "recipient": "Recipient",
+    "date": "Date",
+    "amount": "Amount",
+    "currency": "Currency",
+    "type": "Type",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading expense"
+  },
+  "ExpenseAddPage": {
+    "heading": "Add new expense",
+    "save": "Save",
+    "loading": "Adding new expense"
+  },
+  "ExpenseEditPage": {
+    "heading": "Edit expense",
+    "save": "Save",
+    "loading": "Saving expense"
+  },
+  "ExpenseForm": {
+    "pleaseChoose": "Please choose",
+    "recipient": {
+      "label": "Recipient",
+      "required": "Recipient is a mandatory field"
+    },
+    "date": { "label": "Date", "required": "Date is a mandatory field" },
+    "amount": {
+      "label": "Amount",
+      "required": "Amount is a mandatory field, for example 123.45",
+      "number": "Amount must be a number",
+      "positive": "Amount must be a positive number"
+    },
+    "currency": {
+      "label": "Currency",
+      "required": "Currency is a mandatory field"
+    },
+    "type": { "label": "Type" }
+  }
+}

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage renders 1`] = `
+<div>
+  <p
+    class="text-xs text-red-900"
+    role="alert"
+  >
+    error
+  </p>
+</div>
+`;

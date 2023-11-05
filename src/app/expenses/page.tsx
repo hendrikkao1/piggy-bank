@@ -22,7 +22,7 @@ export default function ExpensesListPage() {
             <li key={expense.id}>
               <Link
                 href={`/expenses/${expense.id}`}
-                className="hover:bg-zinc-900/5 block"
+                className="-mx-6 px-6 hover:bg-zinc-900/5 block"
               >
                 <StackedListItem
                   key={expense.id}

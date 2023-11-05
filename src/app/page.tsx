@@ -10,8 +10,8 @@ export default function RootPage() {
       </p>
       <div className="text-zinc-900 mt-20 text-md">
         <h2 className="font-semibold text-lg text-zinc-900">Requirements</h2>
-        <section className="mt-6">
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - You can use any starter project, or boilerplate for react or
             next.js, e.g.
           </blockquote>
@@ -22,8 +22,8 @@ export default function RootPage() {
             And I won&apos;t turn down a possibility to work with next.js :)
           </p>
         </section>
-        <section className="mt-6">
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - Implement a state management concept, using pure react or
             libraries as redux-rtk, zustand etc.
           </blockquote>
@@ -41,8 +41,8 @@ export default function RootPage() {
             server components etc.
           </p>
         </section>
-        <section className="mt-6">
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - Use http requests to consume the REST API from the client
           </blockquote>
           <p className="mt-2">
@@ -50,8 +50,8 @@ export default function RootPage() {
             schema.
           </p>
         </section>
-        <section className="mt-6">
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - Create a simple mock server for loading and modifying the data,
             e.g. json-server or next.js api routes
           </blockquote>
@@ -59,8 +59,8 @@ export default function RootPage() {
             Used Next js API routes as they come out of the box. Super useful!
           </p>
         </section>
-        <section className="mt-6">
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - Consider client-side validation and error handling
           </blockquote>
           <p className="mt-2">
@@ -79,8 +79,8 @@ export default function RootPage() {
             effort into it!
           </p>
         </section>
-        <section className="mt-6">
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - UI styling will be appreciated but is not required, feel free to
             use any 3rd party library you prefer
           </blockquote>
@@ -93,8 +93,8 @@ export default function RootPage() {
             screen.
           </p>
         </section>
-        <section>
-          <blockquote className="p-4 my-4 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
+        <section className="mt-8">
+          <blockquote className="p-4 mb-2 border-l-4 border-zinc-900/20 bg-zinc-900/10 italic font-semibold leading-relaxed">
             - Please think of it from an Enterprise Solutions perspective and
             treat it as a &quot;big&quot; project
           </blockquote>

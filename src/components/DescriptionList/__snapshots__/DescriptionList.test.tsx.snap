@@ -6,15 +6,15 @@ exports[`DescriptionList renders 1`] = `
     class="divide-y divide-zinc-900/20"
   >
     <div
-      class="py-6 grid grid-cols-2 gap-2"
+      class="py-6 grid grid-cols-2 gap-4"
     >
       <dt
-        class="text-sm font-semibold text-zinc-900"
+        class="text-sm font-semibold text-zinc-900 truncate"
       >
         term
       </dt>
       <dd
-        class="text-sm text-zinc-900 col-span-1"
+        class="text-sm text-zinc-900 col-span-1 truncate"
       >
         description
       </dd>
@@ -29,15 +29,15 @@ exports[`DescriptionList renders react nodes 1`] = `
     class="divide-y divide-zinc-900/20"
   >
     <div
-      class="py-6 grid grid-cols-2 gap-2"
+      class="py-6 grid grid-cols-2 gap-4"
     >
       <dt
-        class="text-sm font-semibold text-zinc-900"
+        class="text-sm font-semibold text-zinc-900 truncate"
       >
         term
       </dt>
       <dd
-        class="text-sm text-zinc-900 col-span-1"
+        class="text-sm text-zinc-900 col-span-1 truncate"
       >
         <span>
           description

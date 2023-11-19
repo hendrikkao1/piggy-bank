@@ -5,11 +5,13 @@ import { ExpenseFormSchema } from "./ExpenseForm.schema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IExpenseFormData } from "./ExpenseForm.types";
 
+// TODO: Can we use zod to do this?
 const mapExpenseToFormData = (
   expense?: Partial<IExpense>,
 ): Partial<IExpenseFormData> => ({
   ...expense,
   // As we don't register a field for id, we set it manually in case it is missing
+  // TODO: Remove `id` from form state
   id: expense?.id ?? "",
   amount: expense?.amount?.toString(),
   date: expense?.date?.toISOString().split("T")[0],

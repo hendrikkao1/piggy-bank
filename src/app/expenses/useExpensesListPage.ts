@@ -13,15 +13,17 @@ export const useExpensesListPage = () => {
     isLoading,
     error,
   } = useExpenses();
-  const searchParams = useSearchParams();
   const t = useTranslations("ExpensesListPage");
   const formatter = useFormatter();
+  // TODO: Can search params be type safe?
+  const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page") ?? "1");
 
   if (error) {
     throw error;
   }
 
+  // TODO: Get rid of useEffect
   useEffect(() => {
     fetchExpenses(page);
     return resetExpenses;

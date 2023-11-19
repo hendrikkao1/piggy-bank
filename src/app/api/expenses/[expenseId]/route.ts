@@ -4,6 +4,7 @@ export const GET = async (
   _: Request,
   { params }: { params: { expenseId: string } },
 ) => {
+  // TODO: Add params validation
   const expense = db.getExpenseById(params.expenseId);
 
   if (!expense) {
@@ -18,6 +19,7 @@ export const GET = async (
 };
 
 export const PUT = async (request: Request) => {
+  // TODO: Add params validation
   const requestBody = await request.json();
   const expense = db.updateExpense(requestBody);
 
@@ -36,6 +38,7 @@ export const DELETE = async (
   _: Request,
   { params }: { params: { expenseId: string } },
 ) => {
+  // TODO: Add params validation
   const expense = db.deleteExpenseById(params.expenseId);
 
   if (!expense) {

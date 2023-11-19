@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
+// TODO: Add as props
 const navItems = [
   ["expenses", "/expenses"],
   ["addNewExpense", "/expenses/add"],

@@ -8,6 +8,5 @@ export interface IExpense {
   date: Date;
   id: string;
   recipient: string;
-
   type: string;
 }

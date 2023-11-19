@@ -15,21 +15,20 @@ export const useExpenseDetailsPage = ({ expenseId }: UseExpensePageOptions) => {
   const t = useTranslations("ExpenseDetailsPage");
   const formatter = useFormatter();
 
+  // TODO: Get rid of useEffect!
   useEffect(() => {
     if (expense?.id !== expenseId) {
       fetchExpense(expenseId);
     }
   }, [expenseId, fetchExpense, expense?.id]);
 
-  const handleDeleteExpense = () => {
-    if (!expense) {
-      return;
-    }
-
-    deleteExpense(expense).then(() => {
-      push(`/expenses`);
-    });
-  };
+  const handleDeleteExpense = expense
+    ? () => {
+        deleteExpense(expense).then(() => {
+          push(`/expenses`);
+        });
+      }
+    : undefined;
 
   return {
     formatter,

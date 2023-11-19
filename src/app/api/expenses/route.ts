@@ -1,6 +1,7 @@
 import db from "@/lib/db";
 
 export const GET = (request: Request) => {
+  // TODO: Add params validation
   const { searchParams } = new URL(request.url);
   const skipParam = searchParams.get("skip");
   const limitParam = searchParams.get("limit");
@@ -16,6 +17,7 @@ export const GET = (request: Request) => {
 };
 
 export const POST = async (request: Request) => {
+  // TODO: Add params validation
   const requestBody = await request.json();
   const expense = db.createExpense(requestBody);
 

@@ -20,17 +20,9 @@ const ApiExpenseResSchema = z.object({
   }),
 });
 
-const ApiExpensesResSchema = z.object({
-  data: z.object({
-    expenses: z.array(ApiExpenseSchema),
-    totalCount: z.number(),
-  }),
-});
-
 type IApiExpenseRes = z.infer<typeof ApiExpenseResSchema>;
 
-type IApiExpensesRes = z.infer<typeof ApiExpensesResSchema>;
-
+// TODO: Handle non 200 responses
 const handleApiError = (req: Promise<Response>) =>
   req
     .then((res) => res.json())
@@ -68,6 +60,15 @@ const deleteExpense = (id: string): Promise<IApiExpenseRes> =>
       method: "DELETE",
     }),
   ).then((res) => ApiExpenseResSchema.parse(res));
+
+type IApiExpensesRes = z.infer<typeof ApiExpensesResSchema>;
+
+const ApiExpensesResSchema = z.object({
+  data: z.object({
+    expenses: z.array(ApiExpenseSchema),
+    totalCount: z.number(),
+  }),
+});
 
 const readExpenses = (skip: number, limit: number): Promise<IApiExpensesRes> =>
   handleApiError(fetch(`${API_PATH}?skip=${skip}&limit=${limit}`)).then((res) =>

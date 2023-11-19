@@ -18,6 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // TODO: Read from URL
   const locale = "en-US";
   const messages = (await import(`../messages/${locale}.json`)).default;
 

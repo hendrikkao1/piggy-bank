@@ -33,7 +33,12 @@ export default function ExpenseDetailsPage({
             <Button as={Link} href={`/expenses/${expense.id}/edit`}>
               {t("edit")}
             </Button>
-            <Button onClick={handleDeleteExpense}>{t("delete")}</Button>
+            <Button
+              disabled={Boolean(handleDeleteExpense)}
+              onClick={handleDeleteExpense}
+            >
+              {t("delete")}
+            </Button>
           </div>
         ) : null}
       </PageHeader>

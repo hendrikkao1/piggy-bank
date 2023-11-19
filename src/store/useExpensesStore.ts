@@ -14,8 +14,12 @@ interface IExpensesStoreState {
 }
 
 const initialState: IExpensesStoreState = {
+  // TODO: Can it be a separate slice?
+  // https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md
   error: undefined,
   expenses: undefined,
+  // TODO: Can it be a separate slice?
+  // https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md
   isLoading: false,
   // TODO: Can it be a separate slice?
   // https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md
@@ -42,7 +46,7 @@ const fetchExpenses = (page: number) => {
 
   return (
     api
-      // page is 1-based, but skip is 0-based
+      // `page` is 1-based, but `skip` is 0-based
       .readExpenses((page - 1) * pageSize, pageSize)
       .then((res) =>
         setState((state) => ({

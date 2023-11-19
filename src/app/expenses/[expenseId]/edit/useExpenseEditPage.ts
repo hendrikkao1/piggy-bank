@@ -16,24 +16,23 @@ export const useExpenseEditPage = ({
     useExpense();
   const t = useTranslations("ExpenseEditPage");
 
+  // TODO: Get rid of useEffect!
   useEffect(() => {
     if (expense?.id !== expenseId) {
       fetchExpense(expenseId);
     }
   }, [expenseId, fetchExpense, expense?.id]);
 
-  const handleEditExpense = async (updatedExpense: IExpense) => {
-    if (!expense) {
-      return;
-    }
-
-    updateExpense({
-      ...expense,
-      ...updatedExpense,
-    }).then(() => {
-      push(`/expenses`);
-    });
-  };
+  const handleEditExpense = expense
+    ? async (updatedExpense: IExpense) => {
+        updateExpense({
+          ...expense,
+          ...updatedExpense,
+        }).then(() => {
+          push("/expenses");
+        });
+      }
+    : () => {};
 
   const defaultValue = expense?.id === expenseId ? expense : undefined;
 

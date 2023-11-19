@@ -13,6 +13,7 @@ interface ExpenseEditPageProps {
 export default function ExpenseEditPage({ params }: ExpenseEditPageProps) {
   const { defaultValue, handleEditExpense, isLoading, t, error } =
     useExpenseEditPage({
+      // TODO: Can slugs be type safe?
       expenseId: params.expenseId,
     });
 
@@ -20,19 +21,13 @@ export default function ExpenseEditPage({ params }: ExpenseEditPageProps) {
     throw error;
   }
 
-  if (isLoading) {
-    return (
-      <Page>
-        <PageHeader heading={t("heading")}>
-          <Spinner>{t("loading")}</Spinner>
-        </PageHeader>
-      </Page>
-    );
-  }
-
   return (
     <Page>
-      <ExpeneseForm defaultValue={defaultValue} onSubmit={handleEditExpense}>
+      <ExpeneseForm
+        key={defaultValue?.id}
+        defaultValue={defaultValue}
+        onSubmit={handleEditExpense}
+      >
         <PageHeader heading={t("heading")}>
           {isLoading ? (
             <Spinner>{t("loading")}</Spinner>

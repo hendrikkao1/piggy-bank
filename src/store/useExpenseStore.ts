@@ -9,8 +9,12 @@ interface IExpenseStoreState {
 }
 
 const initialState: IExpenseStoreState = {
+  // TODO: Can it be a separate slice?
+  // https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md
   error: undefined,
   expense: undefined,
+  // TODO: Can it be a separate slice?
+  // https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md
   isLoading: false,
 };
 

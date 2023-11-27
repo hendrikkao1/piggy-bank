@@ -2,8 +2,11 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import React from "react";
 import type { Metadata } from "next";
-import "./globals.css";
 import { Navigation } from "@/components/Navigation/Navigation";
+import LoggedOut from "@/components/Auth/LoggedOut";
+import LoggedIn from "@/components/Auth/LoggedIn";
+import LogoutButton from "@/components/Auth/LogoutButton";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +41,26 @@ export default async function RootLayout({
                   <span>Piggy bank</span>
                 </Link>
               </div>
-              <Navigation />
+              <Navigation>
+                <ul>
+                  <LoggedIn>
+                    <li>
+                      <Link href="/expenses">Expenses</Link>
+                    </li>
+                    <li>
+                      <Link href="/expenses/add">Add new expense</Link>
+                    </li>
+                    <li>
+                      <LogoutButton>Logout</LogoutButton>
+                    </li>
+                  </LoggedIn>
+                  <LoggedOut>
+                    <li>
+                      <Link href="/login">Login</Link>
+                    </li>
+                  </LoggedOut>
+                </ul>
+              </Navigation>
             </div>
           </header>
           <main className="relative h-full">{children}</main>

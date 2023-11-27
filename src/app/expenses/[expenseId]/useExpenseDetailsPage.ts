@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useTranslations } from "next-intl";
 import { useExpense } from "@/hooks/useExpense";
 import { useFormatter } from "@/hooks/useFormatter";
 import { useRouter } from "next/navigation";
@@ -12,7 +11,6 @@ export const useExpenseDetailsPage = ({ expenseId }: UseExpensePageOptions) => {
   const { deleteExpense, error, expense, fetchExpense, isLoading } =
     useExpense();
   const { push } = useRouter();
-  const t = useTranslations("ExpenseDetailsPage");
   const formatter = useFormatter();
 
   // TODO: Get rid of useEffect!
@@ -33,7 +31,6 @@ export const useExpenseDetailsPage = ({ expenseId }: UseExpensePageOptions) => {
   return {
     formatter,
     expense: expense?.id === expenseId ? expense : undefined,
-    t,
     isLoading,
     error,
     handleDeleteExpense,

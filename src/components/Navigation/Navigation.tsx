@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 // TODO: Add as props
@@ -10,8 +9,6 @@ const navItems = [
 ];
 
 export const Navigation = () => {
-  const t = useTranslations("Navigation");
-
   return (
     <nav>
       <ul>
@@ -21,7 +18,7 @@ export const Navigation = () => {
               className="text-sm text-zinc-600 hover:text-zinc-900 transition"
               href={href}
             >
-              {t(label)}
+              {label}
             </Link>
           </li>
         ))}

@@ -14,7 +14,7 @@ interface ExpenseDetailsPageProps {
 export default function ExpenseDetailsPage({
   params,
 }: ExpenseDetailsPageProps) {
-  const { expense, t, isLoading, formatter, handleDeleteExpense, error } =
+  const { expense, isLoading, formatter, handleDeleteExpense, error } =
     useExpenseDetailsPage({
       expenseId: params.expenseId,
     });
@@ -25,19 +25,19 @@ export default function ExpenseDetailsPage({
 
   return (
     <Page>
-      <PageHeader heading={t("heading")}>
+      <PageHeader heading={"heading"}>
         {isLoading ? (
-          <Spinner>{t("loading")}</Spinner>
+          <Spinner>loading</Spinner>
         ) : expense ? (
           <div className="flex gap-2">
             <Button as={Link} href={`/expenses/${expense.id}/edit`}>
-              {t("edit")}
+              edit
             </Button>
             <Button
               disabled={Boolean(handleDeleteExpense)}
               onClick={handleDeleteExpense}
             >
-              {t("delete")}
+              delete
             </Button>
           </div>
         ) : null}
@@ -46,11 +46,11 @@ export default function ExpenseDetailsPage({
         {expense ? (
           <DescriptionList
             items={[
-              [t("recipient"), expense.recipient],
-              [t("date"), formatter.formatDateTime(expense.date)],
-              [t("amount"), formatter.formatAmount(expense.amount)],
-              [t("currency"), expense.currency],
-              [t("type"), expense.type],
+              ["recipient", expense.recipient],
+              ["date", formatter.formatDateTime(expense.date)],
+              ["amount", formatter.formatAmount(expense.amount)],
+              ["currency", expense.currency],
+              ["type", expense.type],
             ]}
           />
         ) : null}

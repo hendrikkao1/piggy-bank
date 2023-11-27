@@ -8,13 +8,13 @@ import { Button } from "@/components/Button/Button";
 import { Page, PageBody, PageHeader } from "@/components/Page";
 
 export default function ExpensesListPage() {
-  const { expenses, t, nextPage, prevPage, isLoading, formatter } =
+  const { expenses, nextPage, prevPage, isLoading, formatter } =
     useExpensesListPage();
 
   return (
     <Page>
-      <PageHeader heading={t("heading")}>
-        {isLoading && <Spinner>{t("loading")}</Spinner>}
+      <PageHeader heading={"heading"}>
+        {isLoading && <Spinner>loading</Spinner>}
       </PageHeader>
       <PageBody>
         <ul className="divide-y divide-zinc-900/20">
@@ -45,12 +45,12 @@ export default function ExpensesListPage() {
         <div className="mt-4 flex gap-2">
           {prevPage !== undefined && (
             <Button href={`/expenses?page=${prevPage}`} as={Link}>
-              {t("prevPage")}
+              prevPage
             </Button>
           )}
           {nextPage !== undefined && (
             <Button href={`/expenses?page=${nextPage}`} as={Link}>
-              {t("nextPage")}
+              nextPage
             </Button>
           )}
         </div>

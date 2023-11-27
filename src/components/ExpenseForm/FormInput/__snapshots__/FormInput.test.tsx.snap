@@ -22,7 +22,7 @@ exports[`FormInput aria-invalid have \`true\` when there is an error 1`] = `
       class="text-xs text-red-900"
       role="alert"
     >
-      Amount is a mandatory field, for example 123.45
+      amount.required
     </p>
   </div>
 </div>

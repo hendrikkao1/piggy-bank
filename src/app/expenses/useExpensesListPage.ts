@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useTranslations } from "next-intl";
 import { useExpenses } from "@/hooks/useExpenses";
 import { useFormatter } from "@/hooks/useFormatter";
 import { useSearchParams } from "next/navigation";
@@ -13,7 +12,6 @@ export const useExpensesListPage = () => {
     isLoading,
     error,
   } = useExpenses();
-  const t = useTranslations("ExpensesListPage");
   const formatter = useFormatter();
   // TODO: Can search params be type safe?
   const searchParams = useSearchParams();
@@ -42,6 +40,5 @@ export const useExpensesListPage = () => {
     nextPage,
     prevPage,
     isLoading,
-    t,
   };
 };

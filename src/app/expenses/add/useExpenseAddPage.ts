@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { IExpense } from "@/models/expense";
 import { useExpense } from "@/hooks/useExpense";
@@ -6,7 +5,6 @@ import { useExpense } from "@/hooks/useExpense";
 export const useExpenseAddPage = () => {
   const { push } = useRouter();
   const { addExpense, isLoading, error } = useExpense();
-  const t = useTranslations("ExpenseAddPage");
 
   if (error) {
     throw error;
@@ -25,7 +23,6 @@ export const useExpenseAddPage = () => {
   return {
     defaultValue,
     handleAddExpense,
-    t,
     isLoading,
   };
 };

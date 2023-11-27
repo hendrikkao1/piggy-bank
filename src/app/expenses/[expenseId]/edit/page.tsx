@@ -11,7 +11,7 @@ interface ExpenseEditPageProps {
 }
 
 export default function ExpenseEditPage({ params }: ExpenseEditPageProps) {
-  const { defaultValue, handleEditExpense, isLoading, t, error } =
+  const { defaultValue, handleEditExpense, isLoading, error } =
     useExpenseEditPage({
       // TODO: Can slugs be type safe?
       expenseId: params.expenseId,
@@ -28,12 +28,8 @@ export default function ExpenseEditPage({ params }: ExpenseEditPageProps) {
         defaultValue={defaultValue}
         onSubmit={handleEditExpense}
       >
-        <PageHeader heading={t("heading")}>
-          {isLoading ? (
-            <Spinner>{t("loading")}</Spinner>
-          ) : (
-            <Button>{t("save")}</Button>
-          )}
+        <PageHeader heading="heading">
+          {isLoading ? <Spinner>loading</Spinner> : <Button>save</Button>}
         </PageHeader>
         <PageBody>
           <div className="py-6">

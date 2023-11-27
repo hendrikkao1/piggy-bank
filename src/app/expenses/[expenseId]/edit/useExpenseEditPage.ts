@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { IExpense } from "@/models/expense";
 import { useExpense } from "@/hooks/useExpense";
@@ -14,7 +13,6 @@ export const useExpenseEditPage = ({
   const { push } = useRouter();
   const { fetchExpense, updateExpense, expense, error, isLoading } =
     useExpense();
-  const t = useTranslations("ExpenseEditPage");
 
   // TODO: Get rid of useEffect!
   useEffect(() => {
@@ -41,6 +39,5 @@ export const useExpenseEditPage = ({
     error,
     handleEditExpense,
     isLoading,
-    t,
   };
 };

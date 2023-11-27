@@ -5,18 +5,9 @@ import {
   render,
   renderHook,
 } from "@testing-library/react";
-import { NextIntlClientProvider } from "next-intl";
-import messages from "./messages/en-US.json";
 
-export const AllTheProviders = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => (
-  <NextIntlClientProvider locale={"en-US"} messages={messages}>
-    {children}
-  </NextIntlClientProvider>
-);
+export const AllTheProviders = ({ children }: { children: React.ReactNode }) =>
+  children;
 
 const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
   render(ui, { wrapper: AllTheProviders, ...options });

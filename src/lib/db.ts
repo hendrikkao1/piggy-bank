@@ -1,93 +1,130 @@
-import { faker } from "@faker-js/faker";
+import { createClient } from "@/utils/supabase/server";
+import { PostgrestError } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
 
-interface IExpensesTableSchema {
+export interface IDBExpense {
   amount: string;
   currency: string;
   date: string;
-  id: string;
   recipient: string;
   type: string;
+  uuid: string;
 }
 
-faker.seed(0);
-
-const createRandomExpense = (): IExpensesTableSchema => ({
-  amount: faker.number.bigInt().toString(),
-  currency: faker.finance.currencyCode(),
-  date: faker.date.past().toISOString(),
-  id: faker.string.uuid(),
-  recipient: faker.finance.accountName(),
-  type: faker.lorem.word(),
-});
-
-const expensesTable: IExpensesTableSchema[] = faker.helpers.multiple(
-  createRandomExpense,
-  {
-    count: parseInt(process.env.NUMBER_OF_GENERATED_EXPENSES ?? "0"),
-  },
-);
-
-const getPaginatedExpenses = (
+const getPaginatedExpenses = async (
   skip = 0,
   limit = Number.MAX_SAFE_INTEGER,
-): IExpensesTableSchema[] =>
-  expensesTable
-    .sort(
-      ({ date: d1 }, { date: d2 }) =>
-        new Date(d2).getTime() - new Date(d1).getTime(),
-    )
-    .slice(skip, skip + limit);
+): Promise<{
+  data: IDBExpense[] | null;
+  error: PostgrestError | null;
+}> => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase.from("expenses").select("*");
 
-const getExpenesesTotalCount = (): number => expensesTable.length;
-
-const getExpenseById = (id: string): IExpensesTableSchema | null =>
-  expensesTable.find((expense) => expense.id === id) ?? null;
-
-const createExpense = (
-  expense: Omit<IExpensesTableSchema, "id">,
-): IExpensesTableSchema => {
-  const newExpense = {
-    ...expense,
-    id: faker.string.uuid(),
+  return {
+    data: data as unknown as IDBExpense[] | null,
+    error,
   };
-
-  expensesTable.push(newExpense);
-
-  return newExpense;
 };
 
-const updateExpense = (
-  expense: IExpensesTableSchema,
-): IExpensesTableSchema | null => {
-  const index = expensesTable.findIndex((el) => el.id === expense.id);
+const getExpenseById = async (
+  uuid: string,
+): Promise<{
+  data: IDBExpense | null;
+  error: PostgrestError | null;
+}> => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("expenses")
+    .select("*")
+    .eq("uuid", uuid)
+    .single<IDBExpense>();
 
-  if (index === -1) {
-    return null;
-  }
-
-  expensesTable[index] = expense;
-
-  return expense;
+  return {
+    data,
+    error,
+  };
 };
 
-const deleteExpenseById = (id: string): IExpensesTableSchema | null => {
-  const index = expensesTable.findIndex((expense) => expense.id === id);
+const addExpense = async (
+  expense: IDBExpense,
+): Promise<{
+  data: IDBExpense | null;
+  error: PostgrestError | null;
+}> => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { amount, currency, date, recipient, type } = expense;
+  const { data, error } = await supabase
+    .from("expenses")
+    .insert({
+      amount,
+      currency,
+      date,
+      recipient,
+      type,
+    })
+    .select()
+    .single<IDBExpense>();
 
-  if (index === -1) {
-    return null;
-  }
+  return {
+    data,
+    error,
+  };
+};
 
-  const deletedExpense = expensesTable[index];
+const updateExpense = async (
+  expense: IDBExpense,
+): Promise<{
+  data: IDBExpense | null;
+  error: PostgrestError | null;
+}> => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { amount, currency, date, recipient, type, uuid } = expense;
+  const { data, error } = await supabase
+    .from("expenses")
+    .update({
+      recipient,
+      date,
+      amount,
+      currency,
+      type,
+    })
+    .eq("uuid", uuid)
+    .select()
+    .single<IDBExpense>();
 
-  expensesTable.splice(index, 1);
+  return {
+    data,
+    error,
+  };
+};
 
-  return deletedExpense;
+const deleteExpenseById = async (
+  uuid: string,
+): Promise<{
+  data: null;
+  error: PostgrestError | null;
+}> => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("expenses")
+    .delete()
+    .eq("uuid", uuid);
+
+  return {
+    data,
+    error,
+  };
 };
 
 const db = {
-  createExpense,
+  addExpense,
   deleteExpenseById,
-  getExpenesesTotalCount,
   getExpenseById,
   getPaginatedExpenses,
   updateExpense,

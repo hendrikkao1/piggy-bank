@@ -14,6 +14,8 @@ export default function Login({
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
+    const origin = "http://localhost:3000";
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
@@ -31,7 +33,7 @@ export default function Login({
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <form
-        className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
+        className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
         action={signIn}
       >
         <label className="text-md" htmlFor="email">
@@ -43,9 +45,7 @@ export default function Login({
           placeholder="you@example.com"
           required
         />
-        <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
-          Sign In
-        </button>
+        <button className="rounded-md px-4 py-2 mb-2">Sign In</button>
         {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}

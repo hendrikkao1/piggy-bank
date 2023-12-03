@@ -9,13 +9,5 @@ interface FormInputProps extends React.ComponentPropsWithoutRef<"input"> {
 }
 
 export const FormInput = ({ field, ...rest }: FormInputProps) => {
-  const { register, formState } = useFormContext<IExpenseFormData>();
-
-  const error = formState.errors[field];
-
-  return (
-    <FromFieldError error={error?.message}>
-      <Input aria-invalid={Boolean(error)} {...register(field)} {...rest} />
-    </FromFieldError>
-  );
+  return <Input name={field} {...rest} />;
 };

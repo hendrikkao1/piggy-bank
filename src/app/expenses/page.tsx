@@ -1,40 +1,41 @@
-"use client";
-
 import Link from "next/link";
-import { useExpensesListPage } from "./useExpensesListPage";
 import { StackedListItem } from "@/components/StackedListItem/StackedListItem";
-import { Spinner } from "@/components/Spinner/Spinner";
 import { Button } from "@/components/Button/Button";
 import { Page, PageBody, PageHeader } from "@/components/Page";
+import api from "@/lib/api";
 
-export default function ExpensesListPage() {
-  const { expenses, nextPage, prevPage, isLoading, formatter } =
-    useExpensesListPage();
+export default async function ExpensesListPage() {
+  const prevPage = undefined;
+  const nextPage = undefined;
+
+  const { data: expenses, error } = await api.getPaginatedExpenses(
+    0,
+    Number.MAX_SAFE_INTEGER,
+  );
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <Page>
-      <PageHeader heading={"heading"}>
-        {isLoading && <Spinner>loading</Spinner>}
-      </PageHeader>
+      <PageHeader heading={"heading"} />
       <PageBody>
         <ul className="divide-y divide-zinc-900/20">
           {expenses?.map((expense) => (
-            <li key={expense.id}>
+            <li key={expense.uuid}>
               <Link
-                href={`/expenses/${expense.id}`}
+                href={`/expenses/${expense.uuid}`}
                 className="-mx-6 px-6 hover:bg-zinc-900/5 block"
               >
                 <StackedListItem
-                  key={expense.id}
+                  key={expense.uuid}
                   title={expense.recipient}
                   description={expense.type}
-                  subTitle={formatter.formatCurrency(
-                    expense.amount,
-                    expense.currency,
-                  )}
+                  subTitle={expense.amount + " " + expense.currency}
                   meta={
-                    <time dateTime={formatter.formatDateTime(expense.date)}>
-                      {formatter.formatDateTime(expense.date)}
+                    <time dateTime={expense.date.toString()}>
+                      {expense.date.toString()}
                     </time>
                   }
                 />

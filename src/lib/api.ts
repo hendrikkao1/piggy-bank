@@ -1,86 +1,94 @@
-import { z } from "zod";
-import { CURRENCY } from "@/constants/currency";
-import { IExpense } from "@/models/expense";
-import Big from "big.js";
+import db, { IDBExpense } from "./db";
+import { ExpenseSchema, IExpense } from "@/models/expense";
 
-const API_PATH = "/api/expenses";
+const expenseToDBExpense = (expense: IExpense): IDBExpense => {
+  return {
+    amount: expense.amount.toString(),
+    currency: expense.currency,
+    date: expense.date.toISOString(),
+    uuid: expense.uuid,
+    recipient: expense.recipient,
+    type: expense.type,
+  };
+};
 
-const ApiExpenseSchema = z.object({
-  amount: z.string().transform((val) => Big(val)),
-  currency: z.enum(CURRENCY),
-  date: z.string().transform((val) => new Date(val)),
-  id: z.string().uuid(),
-  recipient: z.string(),
-  type: z.string(),
-});
+const addExpense = async (
+  expense: IExpense,
+): Promise<{
+  data: IExpense | null;
+  error: Error | null;
+}> => {
+  const { data, error } = await db.addExpense(expenseToDBExpense(expense));
 
-const ApiExpenseResSchema = z.object({
-  data: z.object({
-    expense: ApiExpenseSchema,
-  }),
-});
+  return {
+    data: ExpenseSchema.parse(data),
+    error: error ? new Error(error.message) : null,
+  };
+};
 
-type IApiExpenseRes = z.infer<typeof ApiExpenseResSchema>;
+const getExpenseById = async (
+  uuid: string,
+): Promise<{
+  data: IExpense | null;
+  error: Error | null;
+}> => {
+  const { data, error } = await db.getExpenseById(uuid);
 
-// TODO: Handle non 200 responses
-const handleApiError = (req: Promise<Response>) =>
-  req
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.error) {
-        throw new Error(res.error);
-      }
-      return res;
-    });
+  return {
+    data: ExpenseSchema.parse(data),
+    error: error ? new Error(error.message) : null,
+  };
+};
 
-const createExpense = (expense: IExpense): Promise<IApiExpenseRes> =>
-  handleApiError(
-    fetch(API_PATH, {
-      method: "POST",
-      body: JSON.stringify(expense),
-    }),
-  ).then((res) => ApiExpenseResSchema.parse(res));
+const updateExpense = async (
+  expense: IExpense,
+): Promise<{
+  data: IExpense | null;
+  error: Error | null;
+}> => {
+  const { data, error } = await db.updateExpense(expenseToDBExpense(expense));
 
-const readExpense = (id: string): Promise<IApiExpenseRes> =>
-  handleApiError(fetch(`${API_PATH}/${id}`)).then((res) =>
-    ApiExpenseResSchema.parse(res),
-  );
+  return {
+    data: ExpenseSchema.parse(data),
+    error: error ? new Error(error.message) : null,
+  };
+};
 
-const updateExpense = (expense: IExpense): Promise<IApiExpenseRes> =>
-  handleApiError(
-    fetch(`${API_PATH}/${expense.id}`, {
-      method: "PUT",
-      body: JSON.stringify(expense),
-    }),
-  ).then((res) => ApiExpenseResSchema.parse(res));
+const deleteExpense = async (
+  uuid: string,
+): Promise<{
+  data: IExpense | null;
+  error: Error | null;
+}> => {
+  const { data, error } = await db.deleteExpenseById(uuid);
 
-const deleteExpense = (id: string): Promise<IApiExpenseRes> =>
-  handleApiError(
-    fetch(`${API_PATH}/${id}`, {
-      method: "DELETE",
-    }),
-  ).then((res) => ApiExpenseResSchema.parse(res));
+  return {
+    data: ExpenseSchema.parse(data),
+    error: error ? new Error(error.message) : null,
+  };
+};
 
-type IApiExpensesRes = z.infer<typeof ApiExpensesResSchema>;
+const getPaginatedExpenses = async (
+  skip: number,
+  limit: number,
+): Promise<{
+  data: IExpense[] | null;
+  error: Error | null;
+}> => {
+  const { data, error } = await db.getPaginatedExpenses(skip, limit);
 
-const ApiExpensesResSchema = z.object({
-  data: z.object({
-    expenses: z.array(ApiExpenseSchema),
-    totalCount: z.number(),
-  }),
-});
-
-const readExpenses = (skip: number, limit: number): Promise<IApiExpensesRes> =>
-  handleApiError(fetch(`${API_PATH}?skip=${skip}&limit=${limit}`)).then((res) =>
-    ApiExpensesResSchema.parse(res),
-  );
+  return {
+    data: data ? data.map((d) => ExpenseSchema.parse(d)) : null,
+    error: error ? new Error(error.message) : null,
+  };
+};
 
 const api = {
-  createExpense,
-  readExpense,
-  updateExpense,
+  addExpense,
   deleteExpense,
-  readExpenses,
+  getExpenseById,
+  getPaginatedExpenses,
+  updateExpense,
 };
 
 export default api;

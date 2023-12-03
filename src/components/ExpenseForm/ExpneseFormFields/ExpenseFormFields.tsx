@@ -2,11 +2,8 @@ import { CURRENCY } from "@/constants/currency";
 import { FormInput } from "../FormInput/FormInput";
 import { FormLabel } from "../FormLabel/FormLabel";
 import { FormSelect } from "../FormSelect/FormSelect";
-import { useExpenseFormFields } from "./useExpenseFormFields";
 
 export const ExpenseFormFields = () => {
-  useExpenseFormFields();
-
   return (
     <div className="flex flex-col gap-6">
       <FormLabel label="recipient.label">

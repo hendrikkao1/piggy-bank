@@ -1,5 +1,4 @@
 export * from "./ExpenseForm.types";
-export * from "./ExpenseForm";
 export * from "./ExpneseFormFields/ExpenseFormFields";
 export * from "./FormInput/FormInput";
 export * from "./FormLabel/FormLabel";

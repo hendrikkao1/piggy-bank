@@ -9,16 +9,10 @@ interface FormSelectProps extends React.ComponentPropsWithRef<"select"> {
 }
 
 export const FormSelect = ({ field, children, ...rest }: FormSelectProps) => {
-  const { register, formState } = useFormContext<IExpenseFormData>();
-
-  const error = formState.errors[field];
-
   return (
-    <FromFieldError error={error?.message}>
-      <Select aria-invalid={Boolean(error)} {...rest} {...register(field)}>
-        <option value="">pleaseChoose</option>
-        {children}
-      </Select>
-    </FromFieldError>
+    <Select name={field} {...rest}>
+      <option value="">pleaseChoose</option>
+      {children}
+    </Select>
   );
 };

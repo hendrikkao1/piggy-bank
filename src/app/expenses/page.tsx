@@ -2,16 +2,19 @@ import Link from "next/link";
 import { StackedListItem } from "@/components/StackedListItem/StackedListItem";
 import { Button } from "@/components/Button/Button";
 import { Page, PageBody, PageHeader } from "@/components/Page";
-import api from "@/lib/api";
+import ExpneseService from "@/lib/expense";
+import { getDictionary } from "@/dictionaries/dictionaries";
 
 export default async function ExpensesListPage() {
-  const prevPage = undefined;
-  const nextPage = undefined;
+  const t = await getDictionary("en");
 
-  const { data: expenses, error } = await api.getPaginatedExpenses(
+  const { data: expenses, error } = await ExpneseService.getPaginatedExpenses(
     0,
     Number.MAX_SAFE_INTEGER,
   );
+
+  const prevPage = undefined;
+  const nextPage = undefined;
 
   if (error) {
     throw error;
@@ -19,7 +22,7 @@ export default async function ExpensesListPage() {
 
   return (
     <Page>
-      <PageHeader heading={"heading"} />
+      <PageHeader heading={t.expensesListPage.heading} />
       <PageBody>
         <ul className="divide-y divide-zinc-900/20">
           {expenses?.map((expense) => (
@@ -46,12 +49,12 @@ export default async function ExpensesListPage() {
         <div className="mt-4 flex gap-2">
           {prevPage !== undefined && (
             <Button href={`/expenses?page=${prevPage}`} as={Link}>
-              prevPage
+              {t.expensesListPage.prevPage}
             </Button>
           )}
           {nextPage !== undefined && (
             <Button href={`/expenses?page=${nextPage}`} as={Link}>
-              nextPage
+              {t.expensesListPage.nextPage}
             </Button>
           )}
         </div>

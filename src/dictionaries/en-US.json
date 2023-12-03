@@ -1,16 +1,16 @@
 {
-  "Navigation": {
+  "navigation": {
     "expenses": "Expenses",
     "addNewExpense": "Add new expense"
   },
-  "ExpensesListPage": {
+  "expensesListPage": {
     "heading": "Expenses",
     "loadMore": "Load more expenses",
     "loading": "Loading expenses",
     "nextPage": "Next page",
     "prevPage": "Previous page"
   },
-  "ExpenseDetailsPage": {
+  "expenseDetailsPage": {
     "heading": "Expense details",
     "recipient": "Recipient",
     "date": "Date",
@@ -21,17 +21,17 @@
     "delete": "Delete",
     "loading": "Loading expense"
   },
-  "ExpenseAddPage": {
+  "expenseAddPage": {
     "heading": "Add new expense",
     "save": "Save",
     "loading": "Adding new expense"
   },
-  "ExpenseEditPage": {
+  "expenseEditPage": {
     "heading": "Edit expense",
     "save": "Save",
     "loading": "Saving expense"
   },
-  "ExpenseForm": {
+  "expenseForm": {
     "pleaseChoose": "Please choose",
     "recipient": {
       "label": "Recipient",

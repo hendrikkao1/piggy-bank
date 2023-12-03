@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Page, PageBody, PageHeader } from "@/components/Page";
 import { DescriptionList } from "@/components/DescriptionList/DescriptionList";
 import { Button } from "@/components/Button/Button";
-import api from "@/lib/api";
+import ExpneseService from "@/lib/expense";
 
 interface ExpenseDetailsPageProps {
   params: { expenseId: string };
@@ -11,12 +11,18 @@ interface ExpenseDetailsPageProps {
 export default async function ExpenseDetailsPage({
   params,
 }: ExpenseDetailsPageProps) {
-  const { data: expense, error } = await api.getExpenseById(params.expenseId);
+  const { data: expense, error } = await ExpneseService.getExpenseById(
+    params.expenseId,
+  );
 
   const deleteExpense = async () => {
     "use server";
-    await api.deleteExpense(params.expenseId);
+    await ExpneseService.deleteExpenseById(params.expenseId);
   };
+
+  if (error) {
+    throw error;
+  }
 
   if (!expense) {
     // Not found

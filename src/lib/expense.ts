@@ -54,7 +54,7 @@ const updateExpense = async (
   };
 };
 
-const deleteExpense = async (
+const deleteExpenseById = async (
   uuid: string,
 ): Promise<{
   data: IExpense | null;
@@ -69,8 +69,8 @@ const deleteExpense = async (
 };
 
 const getPaginatedExpenses = async (
-  skip: number,
-  limit: number,
+  skip = 0,
+  limit = Number.MAX_SAFE_INTEGER,
 ): Promise<{
   data: IExpense[] | null;
   error: Error | null;
@@ -83,12 +83,12 @@ const getPaginatedExpenses = async (
   };
 };
 
-const api = {
+const expnese = {
   addExpense,
-  deleteExpense,
+  deleteExpenseById,
   getExpenseById,
   getPaginatedExpenses,
   updateExpense,
 };
 
-export default api;
+export default expnese;

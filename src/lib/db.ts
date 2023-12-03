@@ -49,7 +49,7 @@ const getExpenseById = async (
 };
 
 const addExpense = async (
-  expense: IDBExpense,
+  expense: Omit<IDBExpense, "uuid">,
 ): Promise<{
   data: IDBExpense | null;
   error: PostgrestError | null;

@@ -1,10 +1,9 @@
 import { Button } from "@/components/Button/Button";
-import { CURRENCY } from "@/constants/currency";
 import { ExpenseSchema } from "@/models/expense";
-import { FormInput, FormLabel, FormSelect } from "@/components/ExpenseForm";
+import { ExpenseFormFields } from "@/components/ExpenseForm";
 import { Page, PageBody, PageHeader } from "@/components/Page";
 import { redirect } from "next/navigation";
-import api from "@/lib/api";
+import ExpneseService from "@/lib/expense";
 
 export default function ExpenseAddPage() {
   const addExpense = async (formData: FormData) => {
@@ -21,9 +20,8 @@ export default function ExpenseAddPage() {
       currency,
       type,
     });
-    const { data: addedExpense, error } = await api.addExpense(newExpnese);
-
-    console.log({ error });
+    const { data: addedExpense, error } =
+      await ExpneseService.addExpense(newExpnese);
 
     redirect("/expenses/" + addedExpense?.uuid?.toString());
   };
@@ -36,34 +34,7 @@ export default function ExpenseAddPage() {
         </PageHeader>
         <PageBody>
           <div className="pt-6">
-            <div className="flex flex-col gap-6">
-              <FormLabel label="recipient.label">
-                <FormInput field="recipient" required />
-              </FormLabel>
-              <FormLabel label="date.label">
-                <FormInput
-                  field="date"
-                  type="date"
-                  required
-                  defaultValue={new Date().toISOString().split("T")[0]}
-                />
-              </FormLabel>
-              <FormLabel label="amount.label">
-                <FormInput field="amount" required type="number" />
-              </FormLabel>
-              <FormLabel label="currency.label">
-                <FormSelect field="currency">
-                  {CURRENCY.map((currency, i) => (
-                    <option key={currency} value={currency}>
-                      {currency}
-                    </option>
-                  ))}
-                </FormSelect>
-              </FormLabel>
-              <FormLabel label={"type.label"}>
-                <FormInput field="type" />
-              </FormLabel>
-            </div>
+            <ExpenseFormFields defaultValues={{}} />
           </div>
         </PageBody>
       </form>
